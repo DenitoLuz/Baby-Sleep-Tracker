@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<div class="center-form">
+<form action="/login" method="post">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" name="username" class="form-control mx-auto w-auto" id="username" placeholder="Enter Username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input id="password" name="password" placeholder="Password" type="password" class="form-control mx-auto w-auto" >
+      <br><input type="checkbox" onclick="showPass()"> Show Password
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

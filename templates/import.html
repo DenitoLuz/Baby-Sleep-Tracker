@@ -1,0 +1,13 @@
+{% extends "/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+<form action="/import" method="POST" enctype="multipart/form-data">
+  Project file path: <input type="file" name="myfile"><br>
+  Enter Baby ID<input type="text" name="baby_id">
+  <input type="submit" value="Submit">
+</form>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+
+
+  <h3>Add Data Entry</h3>
+  <form style="max-width: 400px; margin:auto;" method="post" action="/" name="submit_form" value="add">
+    <div class="mb-3">
+      <label for="date" class="form-label">Date</label>
+    <input type="date" name="date" id="date" class="input-group mb-3">
+  </div>
+
+  <div class="mb-3">
+    <label for="sleep" class="form-label">Fell asleep at: <button class="btn btn-primary" type="button" onclick="setTime('sleep')" id="now_asleep">Just fell asleep</button></label>  <br>
+
+  <input type="time" name="sleep" id="sleep" class="input-group mb-3">
+
+  </div>
+
+  <div class="mb-3">
+    <label for="wake" class="form-label">Woke up at: <button class="btn btn-primary" type="button" onclick="setTime('wake')" id="now_asleep">Just woke up</button></label>  <br>
+
+    <input type="time" name="wake" id="wake" class="input-group mb-3">
+
+
+  </div>
+
+    <br>
+
+  <label for="cars">Choose a Baby:</label>
+
+<select name="baby_id" id="baby_id">
+  {% for item in babys %}
+  <option value="{{ item.id }}" >{{ item.name }}</option>
+  {% endfor %}
+</select>
+
+<input class="btn btn-primary" type="submit" method="POST"> {% block message %}
+
+</form>
+<h3 style ="color:{{color}}">{{ message }}</h3>
+{% endblock %}
+<h3>Your Babys</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Data entries</th>
+        <th scope="col">View Entries</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in babys %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.count }}</td>
+        <td><form action="/view" name="submit" method="POST"><button type="submit" class="btn btn-secondary" value="{{item.id}}" name="baby_id">View Entries</button></form></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+{% endblock %}

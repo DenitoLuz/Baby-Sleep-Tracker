@@ -1,0 +1,98 @@
+{% extends "/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+<form action="/view" method="POST">
+  <label for="baby_id">Choose a Baby:</label>
+<select name="baby_id" id="baby_id">
+  <option value="" selected disabled hidden>Choose here</option>
+  {% for item in babys %}
+  <option value="{{ item.id }}" >{{ item.name }}</option>
+  {% endfor %}
+</select>
+
+<input class="btn btn-primary" type="submit" method="POST">
+</form>
+{% if entries > 10 %}
+<div class="container text-center">
+  <div class="row">
+    <div class="col border">
+      <h2>Top 3</h2>
+      <ol style="list-style-position: inside;">
+        {% if top_three is defined %}
+        3 most regular exact nap times
+        {% for time in top_three[0] %}
+        <li><strong>{{time.time}} </strong>Count: {{time.count}}</li>
+        {% endfor %}
+      </ol>
+      3 most regular nap timeframe +- 10min
+      <ol style="list-style-position: inside;">
+        {% for time in top_three[1] %}
+        <li><strong>{{time.time}} </strong>Count: {{time.count}}</li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+
+
+
+
+    </div>
+    <div class="col border">
+      <h2>Average Times</h2>
+     <p>Average time spent napping per day: {{naptime_day}}</p>
+     <p>Average time of sleep at night: {{ avg_night_sleep}}</p>
+      <p>Average time per nap: {{avg_session_time}}</p>
+<hr>
+
+      <p>Average bed time (night): {{bed_time}}</p>
+      <p>Average wake time (morning): {{wake_time}}</p>
+    </div>
+  </div>
+</div>
+{% elif entries == 0 %}
+<br>
+<p style="color: red">No Data yet. Please add data to use 'view data'</p>
+
+{% elif entries == -8 %}
+<br>
+<p style="color: #eee">No Data yet. Please select a baby</p>
+
+{% elif entries == -10 %}
+<br>
+<p style="color: #eee">Please enter Valid data</p>
+
+{% else %}
+<br>
+<p>Not Enough Entries for a reliable Statistical analysis</p>
+{% endif %}
+
+<h3>Sleep records for: {{ name }}</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Sleep</th>
+        <th scope="col">Wake</th>
+        <th scope="col">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in baby_rec %}
+      <tr>
+        <td>{{ item.date }}</td>
+        <td>{{ item.sleep }}</td>
+        <td>{{ item.wake }}</td>
+        <td>{{ item.time }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% block message %}
+<h3 style ="color:{{color}}">{{ message }}</h3>
+{% endblock %}
+
+{% endblock %}

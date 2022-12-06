@@ -1,0 +1,45 @@
+{% extends "/layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+<h3>Your Babys</h3>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Data entries</th>
+        <th scope="col">View Entries</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for item in babys %}
+      <tr>
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.count }}</td>
+        <td><button type="button" class="btn btn-secondary" name="{{ item.id }}" action="/view" method="POST" >View Entries</button></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3>Add a Baby</h3>
+  <form style="max-width: 400px; margin:auto;" method="post" action="/manage-babies">
+    <div class="mb-3">
+      <label for="babyname" class="form-label">Name</label>
+    <input type="text" name="babyname" id="babyname" class="input-group mb-3">
+  </div>
+
+
+<input class="btn btn-primary" type="submit" method="POST">
+</form>
+
+{% block message %}
+<h3 style ="color:{{color}}">{{ message }}</h3>
+{% endblock %}
+
+{% endblock %}
